@@ -1,0 +1,27 @@
+﻿[{
+		"id":11,
+		"text":"用户管理",
+		"state":"closed",
+		"children":[{
+			"id":111,
+			"text":"用户管理"
+		},{
+			"id":112,
+			"text":"日志管理",
+			"checked":true
+		},{
+			"id":113,
+			"text":"说说管理",
+			"checked":true
+		}]
+	},{
+		"id":12,
+		"text":"网盘管理",
+		"children":[{
+			"id":121,
+			"text":"网盘管理"
+		},{
+			"id":122,
+			"text":"文件管理"
+		}]
+	}]

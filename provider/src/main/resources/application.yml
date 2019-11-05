@@ -1,0 +1,25 @@
+server:
+  port: 9002
+mybatis:
+  mapper-locations: classpath*:mappers/*.xml
+  type-aliases-package: com.itany.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+dubbo:
+  application:
+    name: provider
+    qos-port: 20000
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+  protocol:
+    name: dubbo
+    port: 28881
+  scan:
+    base-packages: com.itany.service.impl
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=ture&characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: root

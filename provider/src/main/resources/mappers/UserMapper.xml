@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--<mapper namespace="aa">-->
+<mapper namespace="com.itany.mapper.UserMapper">
+    <sql id="userColumn">
+        userId,
+        userName,
+        password,
+        loginName,
+        sex,
+        age
+    </sql>
+    <resultMap id="userMapper" type="com.itany.pojo.User">
+        <id property="userId" column="userId" javaType="java.lang.Long"></id>
+        <result javaType="java.lang.String" column="userName" property="userName"></result>
+        <result javaType="java.lang.String" column="password" property="password"></result>
+        <result javaType="java.lang.String" column="loginName" property="loginName"></result>
+        <result javaType="java.lang.String" column="sex" property="sex"></result>
+        <result javaType="java.lang.String" column="age" property="age"></result>
+    </resultMap>
+    <select id="selectByLoginNameAndPassword" parameterType="java.lang.String" resultMap="userMapper">
+        select
+        <include refid="userColumn"></include>
+        from user where loginName = #{loginName} and password = #{password}
+    </select>
+</mapper>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登陆</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="./js/jquery-1.4.2.min.js"></script>
+    <!--背景图片自动更换-->
+    <script src="./js/supersized.3.2.7.min.js"></script>
+    <script src="./js/login-page/login-supersized-init.js"></script>
+    <script>
+        $(function () {
+            $("#submit").click(function () {
+                $.ajax({
+                    type: "post",
+                    url: "/user/login",
+                    data: {
+                        loginName: $("#username").val(),
+                        password: $("#password").val()
+                    },
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.code == "101") {
+                            location.href = "/showMain";
+                        } else {
+                            alert(result.msg);
+                        }
+
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="login-container">
+    <h1>ITANY 书城</h1>
+    <div class="connect">
+        <p>后台维护管理系统</p>
+    </div>
+    <form method="post" id="loginForm">
+        <div>
+            <input type="text" id="username" class="username" placeholder="用户名" autocomplete="off"/>
+        </div>
+        <div>
+            <input type="password" id="password" class="password" placeholder="密码" oncontextmenu="return false"
+                   onpaste="return false"/>
+        </div>
+        <button id="submit" type="button">登 陆</button>
+    </form>
+</div>
+<script type="text/javascript" src="./js/randomWord.js"></script>
+</body>
+</html>

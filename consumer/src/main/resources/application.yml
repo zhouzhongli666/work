@@ -1,0 +1,14 @@
+server:
+  port: 9001
+dubbo:
+  application:
+    name: consumer
+  registry:
+    address: 127.0.0.1:2181
+    protocol: zookeeper
+  scan:
+    base-packages: com.itany.controller
+  provider:
+    timeout: 120000
+  consumer:
+    timeout: 120000

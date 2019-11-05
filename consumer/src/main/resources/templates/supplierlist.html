@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>供应商列表</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+	    //工具栏
+	    var toolbar = [{
+          text: '新增',
+          iconCls: 'icon-edit',
+          handler: function () {  $('#dd').dialog('open');}
+      },{
+	        text: '修改',
+	        iconCls: 'icon-edit',
+	        handler: function () {  $('#dd').dialog('open');}
+	    }, '-', {
+	        text: '启用',
+	        iconCls: 'icon-ok',
+	        handler: function () { alert('ok') }
+	    }, '-', {
+	        text: '禁用',
+	        iconCls: 'icon-cancel',
+	        handler: function () { alert('cancel') }
+	    }];
+	   $(function(){
+	       $('#booklist').datagrid({  
+				title:'书籍列表',  
+				iconCls:'icon-save',   
+				url:'json/datagrid_data1.json',  
+				columns:[[  
+					{field:'a',title:'供应商名称',width:100,align:'center'},  
+					{field:'b',title:'联系人',width:200,align:'center'},  
+					{field:'d',title:'联系电话',width:80,align:'center'},  
+					{field:'e',title:'是否启用',width:200,align:'center'},  
+					{field:'f',title:'入驻日期',width:200,align:'center'},
+          {field:'e',title:'累计进货数',width:200,align:'center'},
+          {field:'e',title:'累计销售数',width:200,align:'center'},
+          {field:'e',title:'等级',width:200,align:'center'},				
+				]],  
+				toolbar: toolbar,  
+				pagination: true,//表示在datagrid设置分页              
+               	pageSize: 5,
+				singleSelect:true,
+                pageList: [5,10,20]
+			});
+
+		 //初始化查询栏
+		 $("#submit_search").linkbutton({ iconCls: 'icon-search', plain: true })
+            .click(function () {
+                $('#dg').datagrid({ queryParams: form2Json("searchform") });   //点击搜索
+            });
+          
+          //初始化修改窗口  
+         $('#dd').dialog({
+			    title: 'My Dialog',
+			    width: 700,
+			    height: 500,
+			    closed: true,
+			    cache: false,
+			    href: '',
+			    modal: true,
+			    iconCls: 'icon-save',
+                buttons: [{
+                    text:'提交',
+                    iconCls:'icon-ok',
+                    handler:function(){
+                        alert('ok');
+                    }
+                },{
+                    text:'关闭',
+                    handler:function(){
+                        alert('cancel');;
+                    }
+                }]
+			});
+            
+	   });
+	</script>
+</head>
+<body>
+   <form name="searchform" method="post" action="" id ="searchform">
+    <td width="70" height="30"><strong>供应商查询：</strong></td>
+    <td height="30">
+        <input type="text" name="keyword" size=20 placeholder="供应商名称"/>
+    </td>
+	  <td>
+	  <a id="submit_search">搜索</a>
+	</td>
+  </form>
+  <table id="booklist"></table>
+    <div id="dd">
+           <div align="center" style="margin-top: 30px">
+            <form id="ff" method="post">
+            <div style="margin-bottom:20px">
+                <input class="easyui-textbox" name="name" style="width:50%" data-options="label:'供应商名称:',required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input class="easyui-textbox" name="name" style="width:50%" data-options="label:'联系人:',required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input class="easyui-textbox" name="name" style="width:50%" data-options="label:'联系电话:',required:true">
+            </div>
+            <div style="margin-bottom:20px">
+                <input class="easyui-textbox" name="name" style="width:50%" data-options="label:'入驻时间:',required:true">
+            </div>
+             <table>
+              <tr style="vertical-align:top">
+                 <td>
+                    公司简介:
+                 </td>
+                 <td>
+                   <textarea rows="10" cols="30"></textarea>
+                 </td>
+              </tr>
+             </table>     
+            
+        </form>
+           </div>
+    </div>
+</body>
+</html>
