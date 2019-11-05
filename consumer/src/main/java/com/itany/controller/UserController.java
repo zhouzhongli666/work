@@ -2,6 +2,7 @@ package com.itany.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itany.constant.AjaxResultCode;
+import com.itany.exception.InputIllegalException;
 import com.itany.exception.InputIsEmptyException;
 import com.itany.exception.LoginNameOrPasswordErrorExceprion;
 import com.itany.pojo.User;
@@ -41,6 +42,24 @@ public class UserController {
             e2.printStackTrace();
             ajaxResult.setCode(AjaxResultCode.ERROR);
             ajaxResult.setMsg(e2.getMessage());
+        }
+        return ajaxResult;
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public AjaxResult register(User user) {
+        AjaxResult ajaxResult = new AjaxResult();
+        try {
+            Integer userId = userService.register(user);
+            System.out.println("userId=======" + userId);
+            ajaxResult.setCode(AjaxResultCode.SUCCESS);
+            ajaxResult.setReturnObj(user.getUserId());
+        } catch (InputIsEmptyException e) {
+            ajaxResult.setMsg(e.getMessage());
+            ajaxResult.setCode(AjaxResultCode.ERROR);
+        } catch (InputIllegalException e) {
+            ajaxResult.setMsg(e.getMessage());
+            ajaxResult.setCode(AjaxResultCode.ERROR);
         }
         return ajaxResult;
     }

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface UserMapper {
     List<User> selectByLoginNameAndPassword(@Param("loginName") String loginName, @Param("password") String password);
+
+    Integer insertUser(User user);
 }

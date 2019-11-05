@@ -25,4 +25,9 @@
         <include refid="userColumn"></include>
         from user where loginName = #{loginName} and password = #{password}
     </select>
+    <insert id="insertUser" parameterType="com.itany.pojo.User" useGeneratedKeys="true" keyColumn="userId"
+            keyProperty="userId">
+        insert into
+        user (userName,loginName,password,sex,age) values (#{userName},#{loginName},#{password}, #{sex},#{age} )
+    </insert>
 </mapper>
