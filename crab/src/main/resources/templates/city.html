@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>城市列表</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript">
+	    //工具栏
+	    var toolbar = [{
+	        text: '新增',
+	        iconCls: 'icon-add',
+	        handler: function () { $('#dd').dialog('open'); }
+	    },'-', {
+	        text: '修改',
+	        iconCls: 'icon-edit',
+	        handler: function () {  $('#dd').dialog('open');}
+	    }, '-', {
+	        text: '启用',
+	        iconCls: 'icon-ok',
+	        handler: function () { alert('ok') }
+	    }, '-', {
+	        text: '禁用',
+	        iconCls: 'icon-cancel',
+	        handler: function () { alert('cancel') }
+	    }];
+	   $(function(){
+	       $('#userlist').datagrid({  
+			title:'省份列表',  
+			iconCls:'icon-save',   
+			url:'json/datagrid_data1.json',  
+			columns:[[  
+				{field:'a',title:'ID',width:100,align:'center'},  
+				{field:'b',title:'城市名称',width:200,align:'center'},
+				{field:'c',title:'所属省份',width:100,align:'center'},  
+				{field:'c',title:'状态',width:100,align:'center'}			
+			]],  
+			pagination:true,
+			toolbar: toolbar  
+		});
+		 //初始化查询栏
+		 $("#submit_search").linkbutton({ iconCls: 'icon-search', plain: true })
+            .click(function () {
+                $('#dg').datagrid({ queryParams: form2Json("searchform") });   //点击搜索
+            });
+          
+          //初始化修改窗口  
+         $('#dd').dialog({
+			    title: 'My Dialog',
+			    width: 480,
+			    height: 180,
+			    closed: true,
+			    cache: false,
+			    href: '',
+			    modal: true,
+			    iconCls: 'icon-save',
+                buttons: [{
+                    text:'提交',
+                    iconCls:'icon-ok',
+                    handler:function(){
+                        alert('ok');
+                    }
+                },{
+                    text:'关闭',
+                    handler:function(){
+                        alert('cancel');;
+                    }
+                }]
+			});
+            
+           
+           //tree选项框初始化
+           $("#ah").tree({
+               url:'json/tree_data1.json',
+			   method:'post',
+			   animate:true,
+			   checkbox:true
+           });
+            
+	   });
+	</script>
+</head>
+<body>
+   <form name="searchform" method="post" action="" id ="searchform">
+    <td width="70" height="30"><strong>省份查询：</strong></td>
+    <td height="30">
+        <input type="text" name="keyword" size=20 placeholder="区域名称"/>
+        <a id="submit_search">搜索</a>
+    </td>
+  </form>
+  <table id="userlist"></table>
+    <div id="dd">
+           <div align="center" style="margin-top: 30px">
+            <form id="ff" method="post">
+            <div style="margin-bottom:20px">
+                <input class="easyui-textbox" name="name" style="width:50%" data-options="label:'城市名称:'">
+            </div>
+             <div style="margin-bottom:20px">
+                <select id="cc" class="easyui-combobox" name="dept" style="width:50%" data-options="label:'所属省份:'">   
+				    <option value="">请选择省份</option>   
+				</select> 
+            </div>
+        </form>
+           </div>
+    </div>
+</body>
+</html>
